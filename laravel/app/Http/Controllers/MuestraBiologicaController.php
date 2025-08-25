@@ -12,6 +12,8 @@ use App\UseCases\Contracts\MuestrasBiologicas\CrearInterface;
 use App\UseCases\Contracts\MuestrasBiologicas\ActualizarInterface;
 use App\Http\Requests\StoreMuestraBiologicaRequest;
 use App\Http\Requests\UpdateMuestraBiologicaRequest;
+use App\UseCases\Contracts\MuestrasBiologicas\RestaurarInterface;
+use App\UseCases\Contracts\MuestrasBiologicas\EliminarDefinitivoInterface;
 
 class MuestraBiologicaController extends Controller
 {
@@ -26,6 +28,7 @@ class MuestraBiologicaController extends Controller
     public function crear()
     {
         return view('muestras.create', [
+            'muestra'   => new \App\Models\MuestraBiologica(),
             'tipos'      => TipoMuestra::orderBy('nombre')->get(),
             'estados'    => EstadoMuestra::orderBy('nombre')->get(),
             'pacientes'  => Paciente::orderBy('apellidos')->get(),
@@ -35,7 +38,7 @@ class MuestraBiologicaController extends Controller
 
     public function guardar(StoreMuestraBiologicaRequest $request, CrearInterface $crear)
     {
-        $crear->manejar($request->validated());
+        $crear->handle($request->validated());
         return redirect()->route('muestras.listar')->with('success', 'Muestra creada correctamente.');
     }
 
@@ -52,7 +55,7 @@ class MuestraBiologicaController extends Controller
 
     public function actualizar(UpdateMuestraBiologicaRequest $request, MuestraBiologica $muestra_biologica, ActualizarInterface $actualizar)
     {
-        $actualizar->manejar($muestra_biologica, $request->validated());
+        $actualizar->handle($muestra_biologica, $request->validated());
         return redirect()->route('muestras.listar')->with('success', 'Muestra actualizada correctamente.');
     }
 
@@ -60,5 +63,33 @@ class MuestraBiologicaController extends Controller
     {
         $this->repo->eliminar($muestra_biologica);
         return redirect()->route('muestras.listar')->with('success', 'Muestra eliminada.');
+    }
+
+
+    // NUEVO: listar inactivos
+    public function inactivos()
+    {
+        $muestras = $this->repo->listarEliminadas(15);
+        return view('muestras.inactivos', compact('muestras'));
+    }
+
+    // NUEVO: restaurar
+    public function restaurar(int $id, RestaurarInterface $restaurar)
+    {
+        $muestras = $this->repo->obtenerEliminadaPorId($id);
+        abort_if(!$muestras, 404);
+        $restaurar->handle($muestras);
+
+        return back()->with('success', 'Muestra restaurada.');
+    }
+
+    // NUEVO: eliminar definitivamente
+    public function destruir(int $id, EliminarDefinitivoInterface $eliminar)
+    {
+        $muestras = $this->repo->obtenerEliminadaPorId($id);
+        abort_if(!$muestras, 404);
+        $eliminar->handle($muestras);
+
+        return back()->with('success', 'Muestra eliminada definitivamente.');
     }
 }

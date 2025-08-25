@@ -14,4 +14,8 @@ Route::prefix('muestras')->name('muestras.')->group(function () {
     Route::get('/{muestra_biologica}/editar', [MuestraBiologicaController::class, 'editar'])->name('editar');
     Route::put('/{muestra_biologica}', [MuestraBiologicaController::class, 'actualizar'])->name('actualizar');
     Route::delete('/{muestra_biologica}', [MuestraBiologicaController::class, 'eliminar'])->name('eliminar');
+
+    Route::get('/inactivos', [MuestraBiologicaController::class, 'inactivos'])->name('inactivos');
+    Route::patch('/{id}/restaurar', [MuestraBiologicaController::class, 'restaurar'])->name('restaurar');
+    Route::delete('/{id}/destruir', [MuestraBiologicaController::class, 'destruir'])->name('destruir');
 });

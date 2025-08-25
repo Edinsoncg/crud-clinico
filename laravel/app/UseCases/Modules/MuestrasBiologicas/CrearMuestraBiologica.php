@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\MuestrasBiologicas;
+namespace App\UseCases\Modules\MuestrasBiologicas;
 
 use App\Models\MuestraBiologica;
 use App\Repositories\Contracts\MuestraBiologicaRepositoryInterface;
@@ -10,7 +10,7 @@ class CrearMuestraBiologica implements CrearInterface
 {
     public function __construct(private MuestraBiologicaRepositoryInterface $repo) {}
 
-    public function manejar(array $data): MuestraBiologica
+    public function handle(array $data): MuestraBiologica
     {
         return $this->repo->crear($data);
     }

@@ -4,7 +4,7 @@ namespace App\UseCases\Contracts\MuestrasBiologicas;
 
 use App\Models\MuestraBiologica;
 
-interface CrearInterface
+interface EliminarDefinitivoInterface
 {
-    public function handle(array $data): MuestraBiologica;
+    public function handle(MuestraBiologica $muestra): bool;
 }

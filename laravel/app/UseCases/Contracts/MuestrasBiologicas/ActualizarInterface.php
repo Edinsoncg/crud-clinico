@@ -6,5 +6,5 @@ use App\Models\MuestraBiologica;
 
 interface ActualizarInterface
 {
-    public function manejar(MuestraBiologica $muestra, array $data): MuestraBiologica;
+    public function handle(MuestraBiologica $muestra, array $data): MuestraBiologica;
 }

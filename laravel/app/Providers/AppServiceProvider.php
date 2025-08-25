@@ -14,18 +14,18 @@ class AppServiceProvider extends ServiceProvider
         // Repositorio de Muestras Biológicas
         $this->app->bind(
             \App\Repositories\Contracts\MuestraBiologicaRepositoryInterface::class,
-            \App\Repositories\Eloquent\EloquentMuestraBiologicaRepository::class
+            \App\Repositories\Modules\MuestraBiologicaRepository::class
         );
 
         // Use cases de Muestras Biológicas
         $this->app->bind(
             \App\UseCases\Contracts\MuestrasBiologicas\CrearInterface::class,
-            \App\UseCases\MuestrasBiologicas\CrearMuestraBiologica::class
+            \App\UseCases\Modules\MuestrasBiologicas\CrearMuestraBiologica::class
         );
 
         $this->app->bind(
             \App\UseCases\Contracts\MuestrasBiologicas\ActualizarInterface::class,
-            \App\UseCases\MuestrasBiologicas\ActualizarMuestraBiologica::class
+            \App\UseCases\Modules\MuestrasBiologicas\ActualizarMuestraBiologica::class
         );
 
         // (Opcional) Agrega aquí futuros binds de Pacientes, Personal, etc.

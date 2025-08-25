@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 
 class MuestraBiologica extends Model
 {
@@ -43,4 +45,18 @@ class MuestraBiologica extends Model
     {
         return $this->belongsTo(EstadoMuestra::class, 'estado_muestra_id');
     }
+
+    protected function horaRecoleccion(): Attribute
+    {
+        return Attribute::make(
+            // Al LEER desde BD -> mostrar en el form como HH:mm
+            get: fn ($value) =>
+                $value ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') : null,
+
+            // Al ESCRIBIR desde el form -> guardar como HH:mm:ss
+            set: fn ($value) =>
+                $value ? Carbon::createFromFormat('H:i', $value)->format('H:i:s') : null,
+        );
+    }
 }
+
