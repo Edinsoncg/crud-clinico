@@ -28,6 +28,16 @@ class AppServiceProvider extends ServiceProvider
             \App\UseCases\Modules\MuestrasBiologicas\ActualizarMuestraBiologica::class
         );
 
+        $this->app->bind(
+            \App\UseCases\Contracts\MuestrasBiologicas\EliminarDefinitivoInterface::class,
+            \App\UseCases\Modules\MuestrasBiologicas\EliminarDefinitivoMuestraBiologica::class
+        );
+
+        $this->app->bind(
+            \App\UseCases\Contracts\MuestrasBiologicas\RestaurarInterface::class,
+            \App\UseCases\Modules\MuestrasBiologicas\RestaurarMuestraBiologica::class
+        );
+
         // (Opcional) Agrega aquí futuros binds de Pacientes, Personal, etc.
         /*
         $this->app->bind(
