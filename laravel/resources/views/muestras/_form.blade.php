@@ -1,9 +1,9 @@
 @php
-  $isEdit = isset($muestra) && $muestra?->exists;
+    $isEdit = isset($muestra) && $muestra?->exists;
 @endphp
 
 {{-- ID oculto para distinguir crear vs actualizar --}}
-<input type="hidden" id="muestra_id" name="id" value="">
+<input type="hidden" id="muestra_id" name="id" value="" data-id-field>
 
 <div class="row g-3">
     <div class="col-12 col-md-4">

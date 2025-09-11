@@ -1,8 +1,19 @@
 import { setupAjaxCsrf } from '../modules/helpers.js'
-import { initInactivosTable } from '../modules/tableMuestrasInactivos.js'
+import { MuestrasTableFactory } from '../modules/tables/MuestrasTableFactory.js'
+import { CrudManager } from '../general/crud-generico.js'
 
-window.addEventListener('DOMContentLoaded', () => {
-    // Header global X-CSRF-TOKEN para todas las peticiones AJAX
+// Inicializar todo cuando el DOM esté listo
+$(function () {
+    // Configurar CSRF para AJAX
     setupAjaxCsrf()
-    initInactivosTable()
+
+    // Inicializar tabla de inactivos
+    const inactivosTable = MuestrasTableFactory.createInactiveTable()
+
+    // Inicializar el manager CRUD genérico para inactivos
+    const crudManager = new CrudManager({
+        table: inactivosTable,
+        baseUrl: '/muestras'
+    })
+
 })

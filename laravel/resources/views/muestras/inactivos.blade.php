@@ -13,18 +13,18 @@
 
 <div class="card">
     <div class="card-body">
-      <table id="inactivosTable" class="table table-striped w-100">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Código</th>
-                <th>Paciente</th>
-                <th>Tipo</th>
-                <th>Eliminada</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </thead>
-      </table>
+        <table id="inactivosTable" class="table table-striped w-100">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Paciente</th>
+                    <th>Tipo</th>
+                    <th>Eliminada</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 @endsection

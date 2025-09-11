@@ -1,5 +1,3 @@
-/* global bootstrap */
-
 // Muestra alertas de Bootstrap de manera temporal
 export function showFlash(message, type = 'success', timeoutMs = 3500) {
     const container = document.querySelector('main.container') || document.body
@@ -34,12 +32,19 @@ export function showFlash(message, type = 'success', timeoutMs = 3500) {
     }, timeoutMs)
 }
 
+// Obtener token CSRF desde meta tag o formulario
+export function getCsrf(formSelector = null) {
+    // Primero intentar desde formulario específico
+    if (formSelector) {
+        const input = document.querySelector(`${formSelector} input[name="_token"]`)
+        if (input?.value) return input.value
+    }
 
-export function getCsrf() {
-    // Toma el token del form
-    const input = document.querySelector('#muestrasForm input[name="_token"]')
+    // Luego desde cualquier formulario
+    const input = document.querySelector('input[name="_token"]')
     if (input?.value) return input.value
 
+    // Finalmente desde meta tag
     const meta = document.querySelector('meta[name="csrf-token"]')
     return meta ? meta.getAttribute('content') : ''
 }
@@ -48,11 +53,7 @@ export function setupAjaxCsrf() {
     const token = getCsrf()
     if (window.$ && token) {
         window.$.ajaxSetup({
-        headers: { 'X-CSRF-TOKEN': token }
+            headers: { 'X-CSRF-TOKEN': token }
         })
     }
-}
-
-export function toHHmm(hour) {
-    return hour ? String(hour).slice(0, 5) : ''
 }

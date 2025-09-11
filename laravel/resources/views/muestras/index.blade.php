@@ -13,12 +13,23 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <form id="muestrasForm" class="js-confirm" data-confirm-title="Guardar" data-confirm-text="¿Deseas guardar la muestra?" data-confirm-ok-class="btn-success">
+        <form id="muestrasForm" class="crud-form">
             @csrf
             @include('muestras._form')
             <div class="mt-3 d-flex gap-2">
-                <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
-                <button type="button" class="btn btn-secondary" id="btnReset">Limpiar</button>
+                <button type="submit"
+                        class="btn btn-success crud-save"
+                        data-confirm-title="Guardar muestra"
+                        data-confirm-message="¿Deseas guardar esta muestra?"
+                        data-success-message="Muestra guardada correctamente"
+                        data-error-message="Error al guardar la muestra">
+                    <i class="bi bi-save"></i> Guardar
+                </button>
+                <button type="button"
+                        class="btn btn-secondary crud-reset"
+                        data-form-selector="#muestrasForm">
+                    <i class="bi bi-arrow-clockwise"></i> Limpiar
+                </button>
             </div>
         </form>
     </div>
