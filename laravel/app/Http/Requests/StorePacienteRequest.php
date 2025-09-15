@@ -14,6 +14,7 @@ class StorePacienteRequest extends FormRequest
         // Nombres reales de tus tablas
         $tablaPac = 'paciente';
         $tablaDoc = 'tipo_documento';
+        $tablaGen = 'genero';
 
         $uniqueDocumento = Rule::unique($tablaPac, 'numero_documento')
             ->where(fn($q) => $q->where('tipo_documento_id', $this->input('tipo_documento_id'))
@@ -25,7 +26,7 @@ class StorePacienteRequest extends FormRequest
             'tipo_documento_id' => ['required',"exists:{$tablaDoc},id"],
             'numero_documento'  => ['required','string','max:20',$uniqueDocumento],
             'fecha_nacimiento'  => ['nullable','date','before:today'],
-            'genero_id'         => ['nullable','exists:genero,id'],
+            'genero_id'         => ['nullable',"exists:{$tablaGen},id"],
             'telefono'          => ['nullable','string','max:20'],
             'direccion'         => ['nullable','string','max:255'],
         ];

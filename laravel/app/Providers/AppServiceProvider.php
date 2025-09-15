@@ -38,17 +38,26 @@ class AppServiceProvider extends ServiceProvider
             \App\UseCases\Modules\MuestrasBiologicas\RestaurarMuestraBiologica::class
         );
 
-        // (Opcional) Agrega aquí futuros binds de Pacientes, Personal, etc.
-        /*
         $this->app->bind(
             \App\Repositories\Contracts\PacienteRepositoryInterface::class,
-            \App\Repositories\Eloquent\EloquentPacienteRepository::class
+            \App\Repositories\Modules\PacienteRepository::class
         );
         $this->app->bind(
-            \App\UseCases\Contracts\Pacientes\CreateInterface::class,
-            \App\UseCases\Pacientes\CrearPaciente::class
+            \App\UseCases\Contracts\Pacientes\CrearInterface::class,
+            \App\UseCases\Modules\Pacientes\CrearPaciente::class
         );
-        */
+        $this->app->bind(
+            \App\UseCases\Contracts\Pacientes\ActualizarInterface::class,
+            \App\UseCases\Modules\Pacientes\ActualizarPaciente::class
+        );
+        $this->app->bind(
+            \App\UseCases\Contracts\Pacientes\EliminarDefinitivoInterface::class,
+            \App\UseCases\Modules\Pacientes\EliminarDefinitivoPaciente::class
+        );
+        $this->app->bind(
+            \App\UseCases\Contracts\Pacientes\RestaurarInterface::class,
+            \App\UseCases\Modules\Pacientes\RestaurarPaciente::class
+        );
     }
 
     public function boot(): void
