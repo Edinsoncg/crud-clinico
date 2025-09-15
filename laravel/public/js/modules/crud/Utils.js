@@ -14,7 +14,7 @@ export class DataExtractor {
     }
 
     static extractEntityData(response) {
-        const possibleKeys = ['data', 'muestra', 'item', 'record'];
+        const possibleKeys = ['data'];
 
         for (const key of possibleKeys) {
             if (response[key]) return response[key];

@@ -99,7 +99,7 @@ class MuestraBiologicaController extends Controller
     {
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
-                'muestra'   => $muestra_biologica->load(['paciente','personalSalud','tipo','estado']),
+                'data'   => $muestra_biologica->load(['paciente','personalSalud','tipo','estado']),
                 'tipos'     => TipoMuestra::orderBy('nombre')->get(['id','nombre']),
                 'estados'   => EstadoMuestra::orderBy('nombre')->get(['id','nombre']),
                 'pacientes' => Paciente::orderBy('apellidos')->get(['id','nombres','apellidos']),

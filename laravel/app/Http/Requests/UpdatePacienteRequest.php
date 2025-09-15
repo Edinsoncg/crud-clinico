@@ -13,6 +13,7 @@ class UpdatePacienteRequest extends FormRequest
     {
         $tablaPac = 'paciente';
         $tablaDoc = 'tipo_documento';
+        $tablaGen = 'genero';
 
         // El parámetro de ruta {paciente} puede venir como ID o como modelo
         $pacienteParam = $this->route('paciente');
@@ -33,7 +34,7 @@ class UpdatePacienteRequest extends FormRequest
             'tipo_documento_id' => ['sometimes',"exists:{$tablaDoc},id"],
             'numero_documento'  => ['sometimes','string','max:20',$uniqueDocumento],
             'fecha_nacimiento'  => ['nullable','date','before:today'],
-            'genero_id'         => ['nullable','exists:genero,id'],
+            'genero_id'         => ['nullable',"exists:{$tablaGen},id"],
             'telefono'          => ['nullable','string','max:20'],
             'direccion'         => ['nullable','string','max:255'],
         ];
